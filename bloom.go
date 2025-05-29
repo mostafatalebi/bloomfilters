@@ -36,10 +36,15 @@ type Bloom struct {
 // positive percentage.
 // n estimated number of items
 // p percentage of the false positive desired
-func OptimalBitSizeValue(n uint64, p float64) uint64 {
+func OptimalValues(n uint64, p float64) (optimalBitArraySize uint64, optimalHashFuncCount uint64) {
 	m := (-1 * float64(n)) * math.Log(p) / float64(math.Pow(2.0, float64(math.Log(2))))
 	cl := uint64(math.Ceil(m))
-	return cl - (cl % 64)
+	optimalBitArraySize = cl - (cl % 64)
+
+	k := float64(m) / float64(n) * math.Log(2)
+	optimalHashFuncCount = uint64(math.Ceil(k))
+
+	return
 }
 
 // size automatically rounds down to the nearest number divisible to 64

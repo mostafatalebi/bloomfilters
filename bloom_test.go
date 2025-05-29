@@ -83,7 +83,10 @@ func TestBitIndex_BigArray_MustFail(t *testing.T) {
 }
 
 func Test_RealWorld_Usage(t *testing.T) {
-	var bf = NewBloom(OptimalBitSizeValue(100000, 0.001), DefaultHashList...)
+	m, k := OptimalValues(100000, 0.001)
+	assert.NotZero(t, m)
+	assert.NotZero(t, k)
+	var bf = NewBloom(m, DefaultHashList...)
 	assert.NoError(t, bf.Set([]byte("Hello")))
 	assert.NoError(t, bf.Set([]byte("Bob")))
 	assert.NoError(t, bf.Set([]byte("Sam")))
