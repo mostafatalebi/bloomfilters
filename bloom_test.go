@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/tjarratt/babble"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -96,4 +98,16 @@ func Test_RealWorld_Usage(t *testing.T) {
 	assert.False(t, bf.Test([]byte("Joe")))
 
 	assert.Equal(t, uint64(3), bf.GetTotalInsertsCount())
+}
+
+func Benchmark_Bloom_BigInsertion(b *testing.B) {
+	m, _ := OptimalValues(10_000_000, 0.001)
+	var bf = NewBloom(m, DefaultHashList...)
+	babbler := babble.NewBabbler()
+
+	for b.Loop() {
+		w := babbler.Babble()
+		bf.Set([]byte(w))
+		bf.Test([]byte(w))
+	}
 }
