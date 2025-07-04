@@ -1,8 +1,9 @@
+![Version Status](https://img.shields.io/badge/version-v0.0.1--active-brightgreen
+)
+
 ### Bloomfilters
-
-
 This package allows you to use bloomfilters in golang. It is a simple and 
-straightforward package used for simpler workfloads.
+straightforward package used for simpler workloads.
 
 
 ### How to use
